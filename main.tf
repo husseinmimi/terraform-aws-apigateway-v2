@@ -124,7 +124,7 @@ resource "aws_apigatewayv2_api_mapping" "this" {
 
 # Additional Api mappings
 resource "aws_apigatewayv2_api_mapping" "this_additional" {
-  for_each = additional_default_stage_api_mappings
+  for_each = var.additional_default_stage_api_mappings
 
   api_id          = aws_apigatewayv2_api.this[0].id 
   domain_name     = each.value["domain_name"] 
