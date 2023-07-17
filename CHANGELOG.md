@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [Harri Changes 1.0.0]
+
+### Features
+* Support more than one api mappings by add additional_api_mappaing attribute
+* Separate routes from integrations
+* Same integration can be used by more than one route
+
 ### [2.2.2](https://github.com/terraform-aws-modules/terraform-aws-apigateway-v2/compare/v2.2.1...v2.2.2) (2023-01-24)
 
 

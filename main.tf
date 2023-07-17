@@ -111,6 +111,8 @@ resource "aws_apigatewayv2_stage" "default" {
   }
 }
 
+### Api mappings
+
 # Default API mapping
 resource "aws_apigatewayv2_api_mapping" "this" {
   count = var.create && var.create_api_domain_name && var.create_default_stage && var.create_default_stage_api_mapping ? 1 : 0
@@ -119,6 +121,17 @@ resource "aws_apigatewayv2_api_mapping" "this" {
   domain_name = aws_apigatewayv2_domain_name.this[0].id
   stage       = aws_apigatewayv2_stage.default[0].id
 }
+
+# Additional Api mappings
+resource "aws_apigatewayv2_api_mapping" "this_additional" {
+  for_each = additional_api_mappaing
+
+  api_id          = each.value["api_id"] 
+  domain_name     = each.value["domain_name"] 
+  stage           = each.value["stage"] 
+  api_mapping_key = each.value["api_mapping_key"]
+}
+
 
 # Routes and integrations
 resource "aws_apigatewayv2_route" "this" {
@@ -134,7 +147,7 @@ resource "aws_apigatewayv2_route" "this" {
   model_selection_expression          = try(each.value.model_selection_expression, null)
   operation_name                      = try(each.value.operation_name, null)
   route_response_selection_expression = try(each.value.route_response_selection_expression, null)
-  target                              = "integrations/${aws_apigatewayv2_integration.this[each.key].id}"
+  target                              = "integrations/${aws_apigatewayv2_integration.this[coalesce(each.value.integration_key, each.key)].id}"
 
   # Have been added to the docs. But is WEBSOCKET only(not yet supported)
   # request_models  = try(each.value.request_models, null)
