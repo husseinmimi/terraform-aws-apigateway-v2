@@ -66,7 +66,7 @@ resource "aws_apigatewayv2_stage" "default" {
   api_id      = aws_apigatewayv2_api.this[0].id
   name        = "$default"
   auto_deploy = true
-
+  description = var.default_stage_description
   dynamic "access_log_settings" {
     for_each = var.default_stage_access_log_destination_arn != null && var.default_stage_access_log_format != null ? [true] : []
 

@@ -32,6 +32,13 @@ variable "additional_default_stage_api_mappings" {
 }
 
 
+variable "default_stage_description" {
+  description = "default stage description"
+  type        = string
+  default     = ""
+}
+
+
 # variable "create_stage" {
 #   description = "Whether to create custom stage"
 #   type        = bool
