@@ -22,7 +22,7 @@ variable "create_default_stage_api_mapping" {
   default     = true
 }
 
-variable "additional_default_stage_api_mappaing" {
+variable "additional_default_stage_api_mappings" {
   description = "additional mapping for default stage"
   type        = map(object({
     domain_name = string
