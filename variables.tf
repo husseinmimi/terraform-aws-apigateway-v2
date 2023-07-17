@@ -22,6 +22,16 @@ variable "create_default_stage_api_mapping" {
   default     = true
 }
 
+variable "additional_default_stage_api_mappaing" {
+  description = "additional mapping for default stage"
+  type        = map(object({
+    domain_name = string
+    api_mapping_key = string
+  }))
+  default     = {}
+}
+
+
 # variable "create_stage" {
 #   description = "Whether to create custom stage"
 #   type        = bool
