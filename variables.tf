@@ -232,7 +232,7 @@ variable "authorizers" {
 # vpc link
 variable "vpc_links" {
   description = "Map of VPC Links details to create"
-  type        = map(any)
+  type        = map(map(any))
   default     = {}
 }
 
