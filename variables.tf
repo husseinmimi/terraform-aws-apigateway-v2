@@ -218,7 +218,7 @@ variable "mutual_tls_authentication" {
 # routes and integrations
 variable "integrations" {
   description = "Map of API gateway routes with integrations"
-  type        = map(any)
+  type        = map(map(any))
   default     = {}
 }
 
@@ -232,7 +232,7 @@ variable "authorizers" {
 # vpc link
 variable "vpc_links" {
   description = "Map of VPC Links details to create"
-  type        = map(map(any))
+  type        = map(any)
   default     = {}
 }
 
