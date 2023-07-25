@@ -154,7 +154,7 @@ resource "aws_apigatewayv2_route" "this" {
 }
 
 resource "aws_apigatewayv2_integration" "this" {
-  for_each = var.create && var.create_routes_and_integrations ? var.integrations : {}
+  for_each = var.integrations 
 
   api_id      = aws_apigatewayv2_api.this[0].id
   description = try(each.value.description, null)
