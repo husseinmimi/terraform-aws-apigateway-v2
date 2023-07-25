@@ -38,6 +38,11 @@ variable "default_stage_description" {
   default     = ""
 }
 
+variable "routes" {
+  description = "apigateway routes to create"
+  type        = map(any)
+  default     = {}
+}
 
 # variable "create_stage" {
 #   description = "Whether to create custom stage"
