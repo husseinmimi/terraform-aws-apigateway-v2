@@ -178,16 +178,16 @@ resource "aws_apigatewayv2_integration" "this" {
     for_each = each.value["tls_config"] != {} ? { config = each.value["tls_config"] } : {}
 
     content {
-      server_name_to_verify = tls_config["server_name_to_verify"]
+      server_name_to_verify = tls_config.value["server_name_to_verify"]
     }
   }
 
   dynamic "response_parameters" {
-    for_each = each.value["response_parameters"] != {} ? { config = each.value["response_parameters"] } : {}
+    for_each = each.value["response_parameters"] != {} ? { parameters = each.value["response_parameters"] } : {}
 
     content {
-      status_code = response_parameters["status_code"]
-      mappings    = response_parameters["mappings"]
+      status_code = response_parameters.value["status_code"]
+      mappings    = response_parameters.value["mappings"]
     }
   }
 
