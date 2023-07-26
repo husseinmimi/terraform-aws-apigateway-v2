@@ -175,7 +175,6 @@ resource "aws_apigatewayv2_integration" "this" {
   request_parameters        = try(jsondecode(each.value["request_parameters"]), each.value["request_parameters"], null)
 
   tls_config {
-
     server_name_to_verify = each.value["tls_config"]["server_name_to_verify"]
   }
 

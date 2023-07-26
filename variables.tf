@@ -232,13 +232,13 @@ variable "integrations" {
     content_handling_strategy = optional(string, null)
     credentials_arn = optional(string, null)
     request_parameters = optional(map(string), {})
-    tls_config = optional(object({
+    tls_config = object({
       server_name_to_verify = optional(string,null)
-      }))
-    response_parameters = optional(object({
+      })
+    response_parameters = object({
       status_code = optional(string,null)
       mappings = optional(string,null)
-      }))
+      })
   }))
   default     = {}
 }
