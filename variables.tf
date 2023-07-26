@@ -235,7 +235,7 @@ variable "integrations" {
     tls_config = optional(map(string),null)
     response_parameters = optional(map(object({
       status_code = optional(string,null)
-      mappings = optional(string,null)
+      mappings = optional(map(string),{})
       })), {})
   }))
   default     = {}
