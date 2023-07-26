@@ -183,7 +183,7 @@ resource "aws_apigatewayv2_integration" "this" {
   }
 
   dynamic "response_parameters" {
-    for_each = each.value["response_parameters"]  != {} ? [1] : [0]
+    for_each = each.value["response_parameters"]  != {} ? [1] : []
 
     content {
       status_code = each.value.response_parameters["status_code"]
