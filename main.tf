@@ -174,21 +174,15 @@ resource "aws_apigatewayv2_integration" "this" {
   credentials_arn           = each.value.credentials_arn
   request_parameters        = try(jsondecode(each.value["request_parameters"]), each.value["request_parameters"], null)
 
-  dynamic "tls_config" {
-    for_each = flatten([try(jsondecode(each.value["tls_config"]), each.value["tls_config"], [])])
+  tls_config {
 
-    content {
-      server_name_to_verify = tls_config.value["server_name_to_verify"]
-    }
+    server_name_to_verify = tls_config.value["server_name_to_verify"]
   }
 
-  dynamic "response_parameters" {
-    for_each = flatten([try(jsondecode(each.value["response_parameters"]), each.value["response_parameters"], [])])
+   response_parameters {
 
-    content {
       status_code = response_parameters.value["status_code"]
       mappings    = response_parameters.value["mappings"]
-    }
   }
 
   lifecycle {
