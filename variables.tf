@@ -232,7 +232,7 @@ variable "integrations" {
     content_handling_strategy = optional(string, null)
     credentials_arn = optional(string, null)
     request_parameters = optional(string, null)
-    tls_config = optional(any,null)
+    tls_config = optional(object({server_name_to_verify =  string}),null)
     response_parameters = optional(any,null)
   }))
   default     = {}
