@@ -126,8 +126,8 @@ resource "aws_apigatewayv2_api_mapping" "this" {
 resource "aws_apigatewayv2_api_mapping" "this_additional" {
   for_each = var.additional_default_stage_api_mappings
 
-  api_id          = aws_apigatewayv2_api.this[0].id 
-  domain_name     = each.value["domain_name"] 
+  api_id          = aws_apigatewayv2_api.this[0].id
+  domain_name     = each.value["domain_name"]
   stage           = aws_apigatewayv2_stage.default[0].id
   api_mapping_key = each.value["api_mapping_key"]
 }
@@ -174,13 +174,21 @@ resource "aws_apigatewayv2_integration" "this" {
   credentials_arn           = each.value.credentials_arn
   request_parameters        = try(jsondecode(each.value["request_parameters"]), each.value["request_parameters"], null)
 
-  tls_config {
-    server_name_to_verify = each.value["tls_config"]["server_name_to_verify"]
+  dynamic "tls_config" {
+    for_each = flatten([try(jsondecode(each.value["tls_config"]), each.value["tls_config"], [])])
+
+    content {
+      server_name_to_verify = tls_config.value["server_name_to_verify"]
+    }
   }
 
-   response_parameters {
-      status_code = each.value["response_parameters"]["status_code"]
-      mappings    = each.value["response_parameters"]["mappings"]
+  dynamic "response_parameters" {
+    for_each = flatten([try(jsondecode(each.value["response_parameters"]), each.value["response_parameters"], [])])
+
+    content {
+      status_code = response_parameters.value["status_code"]
+      mappings    = response_parameters.value["mappings"]
+    }
   }
 
   lifecycle {
