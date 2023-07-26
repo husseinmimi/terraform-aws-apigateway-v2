@@ -176,13 +176,12 @@ resource "aws_apigatewayv2_integration" "this" {
 
   tls_config {
 
-    server_name_to_verify = each.value.tls_config["server_name_to_verify"]
+    server_name_to_verify = each.value["tls_config"]["server_name_to_verify"]
   }
 
    response_parameters {
-
-      status_code = each.value.response_parameters["status_code"]
-      mappings    = each.value.response_parameters["mappings"]
+      status_code = each.value["response_parameters"]["status_code"]
+      mappings    = each.value["response_parameters"]["mappings"]
   }
 
   lifecycle {
