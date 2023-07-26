@@ -159,10 +159,10 @@ resource "aws_apigatewayv2_integration" "this" {
   api_id      = aws_apigatewayv2_api.this[0].id
   description = each.value.description
 
-  integration_type    = try(each.value.integration_type, try(each.value.lambda_arn, "") != "" ? "AWS_PROXY" : "MOCK")
+  integration_type    = coalesce(each.value.integration_type, coalesce(each.value.lambda_arn, "") != "" ? "AWS_PROXY" : "MOCK")
   integration_subtype = each.value.integration_subtype
-  integration_method  = try(each.value.integration_method, try(each.value.integration_subtype, null) == null ? "POST" : null)
-  integration_uri     = try(each.value.lambda_arn, try(each.value.integration_uri, null))
+  integration_method  = coalesce(each.value.integration_method, coalesce(each.value.integration_subtype, null) == null ? "POST" : null)
+  integration_uri     = coalesce(each.value.lambda_arn, coalesce(each.value.integration_uri, null))
 
   connection_type = each.value.connection_type
   connection_id   = try(aws_apigatewayv2_vpc_link.this[each.value["vpc_link"]].id, try(each.value.connection_id, null))
