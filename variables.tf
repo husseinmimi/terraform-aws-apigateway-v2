@@ -218,7 +218,23 @@ variable "mutual_tls_authentication" {
 # routes and integrations
 variable "integrations" {
   description = "Map of API gateway routes with integrations"
-  type        = map(any)
+  type        = map(object({
+    description = optional(string, null)
+    integration_type = optional(string, null)
+    integration_subtype = optional(string, null)
+    integration_method = optional(string, null)
+    integration_uri = optional(string, null)
+    connection_type = optional(string, "INTERNET")
+    connection_id = optional(string, null)
+    payload_format_version = optional(string, null)
+    timeout_milliseconds = optional(string, null)
+    passthrough_behavior = optional(string, null)
+    content_handling_strategy = optional(string, null)
+    credentials_arn = optional(string, null)
+    request_parameters = optional(string, null)
+    tls_config = optional(any,null)
+    response_parameters = optional(any,null)
+  }))
   default     = {}
 }
 
