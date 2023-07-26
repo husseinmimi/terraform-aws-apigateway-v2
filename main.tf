@@ -157,21 +157,21 @@ resource "aws_apigatewayv2_integration" "this" {
   for_each = var.create && var.create_routes_and_integrations ? var.integrations : {}
 
   api_id      = aws_apigatewayv2_api.this[0].id
-  description = try(each.value.description, null)
+  description = each.value.description
 
   integration_type    = try(each.value.integration_type, try(each.value.lambda_arn, "") != "" ? "AWS_PROXY" : "MOCK")
-  integration_subtype = try(each.value.integration_subtype, null)
+  integration_subtype = each.value.integration_subtype
   integration_method  = try(each.value.integration_method, try(each.value.integration_subtype, null) == null ? "POST" : null)
   integration_uri     = try(each.value.lambda_arn, try(each.value.integration_uri, null))
 
-  connection_type = try(each.value.connection_type, "INTERNET")
+  connection_type = each.value.connection_type
   connection_id   = try(aws_apigatewayv2_vpc_link.this[each.value["vpc_link"]].id, try(each.value.connection_id, null))
 
-  payload_format_version    = try(each.value.payload_format_version, null)
-  timeout_milliseconds      = try(each.value.timeout_milliseconds, null)
-  passthrough_behavior      = try(each.value.passthrough_behavior, null)
-  content_handling_strategy = try(each.value.content_handling_strategy, null)
-  credentials_arn           = try(each.value.credentials_arn, null)
+  payload_format_version    = each.value.payload_format_version
+  timeout_milliseconds      = each.value.timeout_milliseconds
+  passthrough_behavior      = each.value.passthrough_behavior
+  content_handling_strategy = each.value.content_handling_strategy
+  credentials_arn           = each.value.credentials_arn
   request_parameters        = try(jsondecode(each.value["request_parameters"]), each.value["request_parameters"], null)
 
   dynamic "tls_config" {
