@@ -232,7 +232,7 @@ variable "integrations" {
     content_handling_strategy = optional(string, null)
     credentials_arn = optional(string, null)
     request_parameters = optional(map(string), {})
-    tls_config = optional(map(string),null)
+    tls_config = optional(map(string), {})
     response_parameters = optional(map(object({
       status_code = optional(string,null)
       mappings = optional(map(string),{})
