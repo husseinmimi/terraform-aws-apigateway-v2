@@ -181,8 +181,8 @@ resource "aws_apigatewayv2_integration" "this" {
 
    response_parameters {
 
-      status_code = each.value.response_parameters.["status_code"]
-      mappings    = each.value.response_parameters.["mappings"]
+      status_code = each.value.response_parameters["status_code"]
+      mappings    = each.value.response_parameters["mappings"]
   }
 
   lifecycle {
