@@ -220,7 +220,7 @@ variable "integrations" {
   description = "Map of API gateway routes with integrations"
   type        = map(object({
     description = optional(string, null)
-    integration_type = optional(string, null)
+    integration_type = optional(string, "HTTP_PROXY")
     integration_subtype = optional(string, null)
     integration_method = optional(string, null)
     integration_uri = optional(string, null)
