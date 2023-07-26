@@ -224,6 +224,7 @@ variable "integrations" {
     integration_subtype = optional(string, null)
     integration_method = optional(string, null)
     integration_uri = optional(string, null)
+    lambda_arn      = optional(string, null)
     connection_type = optional(string, "INTERNET")
     connection_id = optional(string, null)
     payload_format_version = optional(string, null)
