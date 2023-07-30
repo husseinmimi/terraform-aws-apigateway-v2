@@ -178,7 +178,7 @@ resource "aws_apigatewayv2_integration" "this" {
     for_each = each.value["tls_config"] != {} ? {tls_config = each.value["tls_config"]} : {}
 
     content {
-      server_name_to_verify = each.value.tls_config["server_name_to_verify"] # TODO: check later
+      server_name_to_verify = tls_config["server_name_to_verify"] # TODO: check later
     }
   }
 
