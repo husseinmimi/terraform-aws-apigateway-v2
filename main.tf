@@ -175,7 +175,7 @@ resource "aws_apigatewayv2_integration" "this" {
   request_parameters        = try(jsondecode(each.value["request_parameters"]), each.value["request_parameters"], null)
 
   dynamic "tls_config" {
-    for_each = each.value["tls_config"] != {} ? {tls_config = each.value["tls_config"]} : {}
+    for_each = each.value["tls_config"]  ? {tls_config = each.value["tls_config"]} : {}
 
     content {
       server_name_to_verify = each.value.tls_config["server_name_to_verify"] # TODO: check later
