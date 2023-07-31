@@ -175,7 +175,7 @@ resource "aws_apigatewayv2_integration" "this" {
   request_parameters        = try(jsondecode(each.value["request_parameters"]), each.value["request_parameters"], null)
 
   dynamic "tls_config" {
-    for_each = [try(jsondecode(each.value["tls_config"]), each.value["tls_config"], {})]
+    for_each = each.value["tls_config"] != {} ? [1] : []
 
     content {
       server_name_to_verify = each.value["tls_config"]["server_name_to_verify"]
@@ -183,7 +183,7 @@ resource "aws_apigatewayv2_integration" "this" {
   }
 
   dynamic "response_parameters" {
-    for_each = [try(jsondecode(each.value["response_parameters"]), each.value["response_parameters"], {})]
+    for_each = each.value["response_parameters"] != {} ? [1] : []
 
     content {
       status_code = each.value["response_parameters"]["status_code"]
