@@ -186,8 +186,8 @@ resource "aws_apigatewayv2_integration" "this" {
     for_each = try(jsondecode(each.value["response_parameters"]), each.value["response_parameters"], {})
 
     content {
-      status_code = response_parameters.value["status_code"]
-      mappings    = response_parameters.value["mappings"]
+      status_code = each.value["response_parameters"]["status_code"]
+      mappings    = each.value["response_parameters"]["mappings"]
     }
   }
 
