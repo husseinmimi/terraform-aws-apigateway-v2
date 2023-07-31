@@ -175,9 +175,7 @@ resource "aws_apigatewayv2_integration" "this" {
   request_parameters        = try(jsondecode(each.value["request_parameters"]), each.value["request_parameters"], null)
 
   dynamic "tls_config" {
-    for_each = each.value["tls_config"] != {} ? tomap({
-      my_map = each.value["tls_config"]
-    }) : {}
+    for_each = flatten([try(jsondecode(each.value["tls_config"]), each.value["tls_config"], [])])
 
     content {
       server_name_to_verify = tls_config.value["server_name_to_verify"]
@@ -185,11 +183,11 @@ resource "aws_apigatewayv2_integration" "this" {
   }
 
   dynamic "response_parameters" {
-    for_each = each.value["response_parameters"]  != {} ? {} : {response_parameters = each.value["response_parameters"]}
+    for_each = flatten([try(jsondecode(each.value["response_parameters"]), each.value["response_parameters"], [])])
 
     content {
-      status_code = each.value.response_parameters["status_code"]
-      mappings    = each.value.response_parameters["mappings"]
+      status_code = response_parameters.value["status_code"]
+      mappings    = response_parameters.value["mappings"]
     }
   }
 
