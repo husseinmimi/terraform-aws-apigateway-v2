@@ -233,8 +233,11 @@ variable "integrations" {
     content_handling_strategy = optional(string, null)
     credentials_arn = optional(string, null)
     request_parameters = optional(map(string), {})
-    tls_config = optional(map(any), {})
-    response_parameters = optional(map(any), {})
+    tls_config = optional(bool, false)
+    tls_config_server_name_to_verify = optional(string, null)
+    response_parameters = optional(bool, false)
+    response_parameters_status_code = optional(number,null)
+    response_parameters_mappings = optional(map(string), {})
   }))
   default     = {}
 }
